@@ -1,4 +1,4 @@
-import 'package:flutter_linkedin_login/src/wrappers/linked_in_token_object.dart';
+import 'package:easy_linkedin_login/src/wrappers/linked_in_token_object.dart';
 
 /// This class will store code, state, access token and error if there is it
 /// State represents unique set of characters that will be used for security

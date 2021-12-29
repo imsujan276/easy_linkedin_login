@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_linkedin_login/src/DAL/api/endpoint.dart';
-import 'package:flutter_linkedin_login/src/model/linked_in_user_model.dart';
-import 'package:flutter_linkedin_login/src/utils/logger.dart';
-import 'package:flutter_linkedin_login/src/wrappers/linked_in_token_object.dart';
+import 'package:easy_linkedin_login/src/DAL/api/endpoint.dart';
+import 'package:easy_linkedin_login/src/model/linked_in_user_model.dart';
+import 'package:easy_linkedin_login/src/utils/logger.dart';
+import 'package:easy_linkedin_login/src/wrappers/linked_in_token_object.dart';
 import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 

@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_linkedin_login/src/utils/startup/graph.dart';
+import 'package:easy_linkedin_login/src/utils/startup/graph.dart';
 
 @immutable
 class InjectorWidget extends InheritedWidget {

@@ -1,4 +1,4 @@
-# flutter_linkedin_login
+# easy_linkedin_login
 
 added customization to the [linkedin_login](https://pub.dev/packages/linkedin_login) package
 

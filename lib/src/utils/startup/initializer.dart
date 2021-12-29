@@ -1,10 +1,10 @@
-import 'package:flutter_linkedin_login/src/DAL/api/endpoint.dart';
-import 'package:flutter_linkedin_login/src/DAL/api/linked_in_api.dart';
-import 'package:flutter_linkedin_login/src/DAL/repo/authorization_repository.dart';
-import 'package:flutter_linkedin_login/src/DAL/repo/user_repository.dart';
-import 'package:flutter_linkedin_login/src/utils/configuration.dart';
-import 'package:flutter_linkedin_login/src/utils/logger.dart';
-import 'package:flutter_linkedin_login/src/utils/startup/graph.dart';
+import 'package:easy_linkedin_login/src/DAL/api/endpoint.dart';
+import 'package:easy_linkedin_login/src/DAL/api/linked_in_api.dart';
+import 'package:easy_linkedin_login/src/DAL/repo/authorization_repository.dart';
+import 'package:easy_linkedin_login/src/DAL/repo/user_repository.dart';
+import 'package:easy_linkedin_login/src/utils/configuration.dart';
+import 'package:easy_linkedin_login/src/utils/logger.dart';
+import 'package:easy_linkedin_login/src/utils/startup/graph.dart';
 import 'package:http/http.dart' as http;
 
 class Initializer {

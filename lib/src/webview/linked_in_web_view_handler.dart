@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_linkedin_login/src/utils/configuration.dart';
-import 'package:flutter_linkedin_login/src/utils/logger.dart';
-import 'package:flutter_linkedin_login/src/utils/startup/graph.dart';
-import 'package:flutter_linkedin_login/src/utils/startup/injector.dart';
-import 'package:flutter_linkedin_login/src/webview/actions.dart';
+import 'package:easy_linkedin_login/src/utils/configuration.dart';
+import 'package:easy_linkedin_login/src/utils/logger.dart';
+import 'package:easy_linkedin_login/src/utils/startup/graph.dart';
+import 'package:easy_linkedin_login/src/utils/startup/injector.dart';
+import 'package:easy_linkedin_login/src/webview/actions.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 /// Class will fetch code and access token from the user

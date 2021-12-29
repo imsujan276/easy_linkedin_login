@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_linkedin_login/src/actions.dart';
-import 'package:flutter_linkedin_login/src/client/fetcher.dart';
-import 'package:flutter_linkedin_login/src/utils/configuration.dart';
-import 'package:flutter_linkedin_login/src/utils/constants.dart';
-import 'package:flutter_linkedin_login/src/utils/startup/graph.dart';
-import 'package:flutter_linkedin_login/src/utils/startup/initializer.dart';
-import 'package:flutter_linkedin_login/src/utils/startup/injector.dart';
-import 'package:flutter_linkedin_login/src/webview/linked_in_web_view_handler.dart';
+import 'package:easy_linkedin_login/src/actions.dart';
+import 'package:easy_linkedin_login/src/client/fetcher.dart';
+import 'package:easy_linkedin_login/src/utils/configuration.dart';
+import 'package:easy_linkedin_login/src/utils/constants.dart';
+import 'package:easy_linkedin_login/src/utils/startup/graph.dart';
+import 'package:easy_linkedin_login/src/utils/startup/initializer.dart';
+import 'package:easy_linkedin_login/src/utils/startup/injector.dart';
+import 'package:easy_linkedin_login/src/webview/linked_in_web_view_handler.dart';
 import 'package:uuid/uuid.dart';
 
 /// This class is responsible to fetch all information for user after we get

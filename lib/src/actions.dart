@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../flutter_linkedin_login.dart';
+import '../easy_linkedin_login.dart';
 
 @immutable
 class UserSucceededAction extends LinkedAction {

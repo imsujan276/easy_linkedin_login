@@ -1,4 +1,4 @@
-import 'package:flutter_linkedin_login/src/utils/overrides.dart';
+import 'package:easy_linkedin_login/src/utils/overrides.dart';
 
 const Map<EnvironmentAccess, String> _kProduction = {
   EnvironmentAccess.profile: 'https://api.linkedin.com',

@@ -1,4 +1,4 @@
-import 'package:flutter_linkedin_login/src/DAL/api/endpoint.dart';
+import 'package:easy_linkedin_login/src/DAL/api/endpoint.dart';
 
 Overrides overrides = Overrides();
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_linkedin_login/flutter_linkedin_login.dart';
+import 'package:easy_linkedin_login/easy_linkedin_login.dart';
 
 // ignore_for_file: avoid_print
 void main() => runApp(MyApp());

@@ -1,6 +1,6 @@
-import 'package:flutter_linkedin_login/flutter_linkedin_login.dart';
-import 'package:flutter_linkedin_login/src/utils/logger.dart';
-import 'package:flutter_linkedin_login/src/utils/startup/graph.dart';
+import 'package:easy_linkedin_login/easy_linkedin_login.dart';
+import 'package:easy_linkedin_login/src/utils/logger.dart';
+import 'package:easy_linkedin_login/src/utils/startup/graph.dart';
 
 class ClientFetcher {
   ClientFetcher({

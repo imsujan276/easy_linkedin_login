@@ -1,7 +1,7 @@
-import 'package:flutter_linkedin_login/src/DAL/api/exceptions.dart';
-import 'package:flutter_linkedin_login/src/DAL/api/linked_in_api.dart';
-import 'package:flutter_linkedin_login/src/utils/logger.dart';
-import 'package:flutter_linkedin_login/src/wrappers/authorization_code_response.dart';
+import 'package:easy_linkedin_login/src/DAL/api/exceptions.dart';
+import 'package:easy_linkedin_login/src/DAL/api/linked_in_api.dart';
+import 'package:easy_linkedin_login/src/utils/logger.dart';
+import 'package:easy_linkedin_login/src/wrappers/authorization_code_response.dart';
 import 'package:http/http.dart' as http;
 
 class AuthorizationRepository {

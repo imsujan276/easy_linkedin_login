@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_linkedin_login/src/wrappers/linked_in_token_object.dart';
+import 'package:easy_linkedin_login/src/wrappers/linked_in_token_object.dart';
 
 /// Class which has responsibility to keep all users information on one place
 /// Note: You will not get an profile URL with this model. The library is still

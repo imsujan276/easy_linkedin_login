@@ -23,7 +23,7 @@ dependencies:
 
   flutter:
     sdk: flutter
-  flutter_linkedin_login:
+  easy_linkedin_login:
     path: ../
 
 dev_dependencies:
