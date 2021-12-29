@@ -11,48 +11,65 @@ class LinkedInButtonStandardWidget extends StatelessWidget {
     required this.onTap,
     this.iconHeight = 30,
     this.iconWeight = 30,
-    this.iconAssetPath = 'assets/linked_in_logo.png',
+    this.iconAssetPath,
     this.buttonText = 'Sign in with LinkedIn',
     this.buttonColor = Colors.white,
     this.textPadding = const EdgeInsets.all(4),
+    this.standardButton = true,
+    this.customWidget,
   });
 
   final Function onTap;
   final double iconHeight, iconWeight;
-  final String iconAssetPath;
+  final String? iconAssetPath;
   final String buttonText;
   final Color buttonColor;
   final EdgeInsets textPadding;
+  final bool standardButton;
+  final Widget? customWidget;
 
   @override
   Widget build(BuildContext context) => Material(
         child: InkWell(
           onTap: onTap as void Function()?,
-          child: Container(
-            color: Colors.blue,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Image.asset(
-                  iconAssetPath,
-                  package: 'linkedin_login',
-                  width: iconWeight,
-                  height: iconHeight,
-                ),
-                Container(
-                  padding: textPadding,
-                  color: Colors.blue,
-                  child: Text(
-                    buttonText,
-                    style: TextStyle(
-                      color: buttonColor,
+          // ignore: prefer_if_null_operators
+          child: customWidget != null
+              ? customWidget
+              : standardButton
+                  ? Container(
+                      color: Colors.blue,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          Image.asset(
+                            iconAssetPath ?? 'assets/linked_in_logo.png',
+                            package: iconAssetPath == null
+                                ? 'easy_linkedin_login'
+                                : null,
+                            width: iconWeight,
+                            height: iconHeight,
+                          ),
+                          Container(
+                            padding: textPadding,
+                            color: Colors.blue,
+                            child: Text(
+                              buttonText,
+                              style: TextStyle(
+                                color: buttonColor,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  : Image.asset(
+                      iconAssetPath ?? 'assets/linked_in_logo.png',
+                      package:
+                          iconAssetPath == null ? 'easy_linkedin_login' : null,
+                      width: iconWeight,
+                      height: iconHeight,
                     ),
-                  ),
-                ),
-              ],
-            ),
-          ),
         ),
       );
 }

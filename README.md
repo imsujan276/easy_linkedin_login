@@ -16,6 +16,42 @@ You should replace this values
 
 To get these values you need to create App on the [LinkedIn](https://www.linkedin.com/developers/apps/new).
 
+## Widgets
+
+Standard LinkedIn button for login. This widget is modifiable.
+```dart
+    LinkedInButtonStandardWidget(onTap: () {});
+```
+
+## Widget with customization
+```dart
+        LinkedInButtonStandardWidget(
+          standardButton: false,
+          iconAssetPath: IconAsset.linkedinIcon,
+          iconWeight: DeviceInfo.isTablet() ? 50 : 30,
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (BuildContext context) => LinkedInUserWidget(
+                  redirectUrl: kLinkedinRedirectURL,
+                  clientId: kLinkedinClientID,
+                  clientSecret: kLinkedinClientSecret,
+                  onGetUserProfile: (UserSucceededAction linkedInUser) async {
+                    print(
+                        'LinkedIn Access token ${linkedInUser.user.token.accessToken}');
+                    Navigator.pop(context);
+                  },
+                  onError: (UserFailedAction e) {
+                    print('Error: ${e.toString()}');
+                    Navigator.pop(context);
+                  },
+                ),
+              ),
+            );
+          },
+        )
+```
 ## Samples
 
 You can see full example under this [project](https://github.com/imsujan276/easy_linkedin_login/tree/master/example).
@@ -93,8 +129,4 @@ to array. For more info see example project.
   String state;
 ```
 
-## Widgets
 
-Standard LinkedIn button for login. This widget is modifiable.
-
-    LinkedInButtonStandardWidget(onTap: () {});
