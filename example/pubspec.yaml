@@ -20,11 +20,10 @@ publish_to: none
 
 dependencies:
   cupertino_icons: ^0.1.2
-
-  flutter:
-    sdk: flutter
   easy_linkedin_login:
     path: ../
+  flutter:
+    sdk: flutter
 
 dev_dependencies:
   flutter_test:

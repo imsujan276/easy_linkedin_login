@@ -1,4 +1,4 @@
-library linkedin_login;
+library easy_linkedin_login;
 
 export 'package:easy_linkedin_login/src/actions.dart';
 export 'package:easy_linkedin_login/src/client/linked_in_user_widget.dart';

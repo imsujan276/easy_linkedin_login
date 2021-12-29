@@ -57,6 +57,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.2"
+  easy_linkedin_login:
+    dependency: "direct main"
+    description:
+      path: ".."
+      relative: true
+    source: path
+    version: "1.0.0"
   fake_async:
     dependency: transitive
     description:
@@ -69,13 +76,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  easy_linkedin_login:
-    dependency: "direct main"
-    description:
-      path: ".."
-      relative: true
-    source: path
-    version: "1.0.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter

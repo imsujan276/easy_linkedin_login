@@ -1,8 +1,8 @@
 # easy_linkedin_login
 
-added customization to the [linkedin_login](https://pub.dev/packages/linkedin_login) package
+Added customization to the [linkedin_login](https://pub.dev/packages/linkedin_login) package
 
-## ⭐⭐⭐⭐ Star ⭐⭐⭐⭐ a repo if you like project. Your support matters to us.⭐⭐⭐⭐
+## ⭐⭐⭐⭐ Star ⭐⭐⭐⭐ a [Repository](https://github.com/imsujan276/easy_linkedin_login) if you like project. Your support matters to us.⭐⭐⭐⭐
 
 ## Important 
 
@@ -18,7 +18,7 @@ To get these values you need to create App on the [LinkedIn](https://www.linkedi
 
 ## Samples
 
-You can see full example under this [project](https://github.com/d3xt3r2909/linkedin_login/tree/master/example).
+You can see full example under this [project](https://github.com/imsujan276/easy_linkedin_login/tree/master/example).
 
 Call LinkedIn authorization and get user object:
 ```dart
