@@ -10,7 +10,7 @@ class LinkedInButtonStandardWidget extends StatelessWidget {
   const LinkedInButtonStandardWidget({
     required this.onTap,
     this.iconHeight = 30,
-    this.iconWeight = 30,
+    this.iconWidth = 30,
     this.iconAssetPath,
     this.buttonText = 'Sign in with LinkedIn',
     this.buttonColor = Colors.white,
@@ -20,7 +20,7 @@ class LinkedInButtonStandardWidget extends StatelessWidget {
   });
 
   final Function onTap;
-  final double iconHeight, iconWeight;
+  final double iconHeight, iconWidth;
   final String? iconAssetPath;
   final String buttonText;
   final Color buttonColor;
@@ -47,7 +47,7 @@ class LinkedInButtonStandardWidget extends StatelessWidget {
                             package: iconAssetPath == null
                                 ? 'easy_linkedin_login'
                                 : null,
-                            width: iconWeight,
+                            width: iconWidth,
                             height: iconHeight,
                           ),
                           Container(
@@ -67,7 +67,7 @@ class LinkedInButtonStandardWidget extends StatelessWidget {
                       iconAssetPath ?? 'assets/linked_in_logo.png',
                       package:
                           iconAssetPath == null ? 'easy_linkedin_login' : null,
-                      width: iconWeight,
+                      width: iconWidth,
                       height: iconHeight,
                     ),
         ),
