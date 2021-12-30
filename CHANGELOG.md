@@ -1,3 +1,8 @@
+## 1.0.2
+### Added customization
+
+-   pass custom widget to the LinkedInButtonStandardWidget
+
 ## 1.0.1
 ### Added customization
 

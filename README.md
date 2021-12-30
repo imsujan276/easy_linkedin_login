@@ -16,65 +16,52 @@ You should replace this values
 
 To get these values you need to create App on the [LinkedIn](https://www.linkedin.com/developers/apps/new).
 
-## Widgets
-
+## Standard Widget
 Standard LinkedIn button for login. This widget is modifiable.
 ```dart
-    LinkedInButtonStandardWidget(onTap: () {});
+  LinkedInButtonStandardWidget(onTap: () {});
+```
+
+## Widget with custom widget
+```dart
+  LinkedInButtonStandardWidget(
+    customWidget: Text("Login with Linkedin"),
+    onTap: () {},
+  );
 ```
 
 ## Widget with customization
 ```dart
-        LinkedInButtonStandardWidget(
-          standardButton: false,
-          iconAssetPath: IconAsset.linkedinIcon,
-          iconWeight: DeviceInfo.isTablet() ? 50 : 30,
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (BuildContext context) => LinkedInUserWidget(
-                  redirectUrl: kLinkedinRedirectURL,
-                  clientId: kLinkedinClientID,
-                  clientSecret: kLinkedinClientSecret,
-                  onGetUserProfile: (UserSucceededAction linkedInUser) async {
-                    print(
-                        'LinkedIn Access token ${linkedInUser.user.token.accessToken}');
-                    Navigator.pop(context);
-                  },
-                  onError: (UserFailedAction e) {
-                    print('Error: ${e.toString()}');
-                    Navigator.pop(context);
-                  },
-                ),
-              ),
-            );
-          },
-        )
+  LinkedInButtonStandardWidget(
+    standardButton: false,
+    iconAssetPath: IconAsset.linkedinIcon,
+    iconWidth: 30,
+    onTap: () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (BuildContext context) => LinkedInUserWidget(
+            redirectUrl: kLinkedinRedirectURL,
+            clientId: kLinkedinClientID,
+            clientSecret: kLinkedinClientSecret,
+            onGetUserProfile: (UserSucceededAction linkedInUser) async {
+              print('Access token ${linkedInUser.user.token.accessToken!}');
+              print('First name: ${linkedInUser.user.firstName!.localized!.label!}');
+              print('Last name: ${linkedInUser.user.lastName!.localized!.label!}');
+              Navigator.pop(context);
+            },
+            onError: (UserFailedAction e) {
+              print('Error: ${e.toString()}');
+              Navigator.pop(context);
+            },
+          ),
+        ),
+      );
+    },
+  );
 ```
 ## Samples
-
-You can see full example under this [project](https://github.com/imsujan276/easy_linkedin_login/tree/master/example).
-
-Call LinkedIn authorization and get user object:
-```dart
-    LinkedInUserWidget(
-       redirectUrl: redirectUrl,
-       clientId: clientId,
-       clientSecret: clientSecret,
-       onGetUserProfile:
-           (UserSucceededAction linkedInUser) {
-                print('Access token ${linkedInUser.user.token.accessToken!}');
-                print('First name: ${linkedInUser.user.firstName!.localized!.label!}');
-                print('Last name: ${linkedInUser.user.lastName!.localized!.label!}');
-       },
-       onError: (UserFailedAction e) {
-                print('Error: ${e.toString()}');
-       },
-    )
-```
-
-Or you can just fetch authorization code (clientSecret is not required in this widget):
+You can just fetch authorization code (clientSecret is not required in this widget):
 ```dart
     LinkedInAuthCodeWidget(
         redirectUrl: redirectUrl,
