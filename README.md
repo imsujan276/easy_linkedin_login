@@ -1,8 +1,7 @@
 # easy_linkedin_login
 
-Added customization to the [linkedin_login](https://pub.dev/packages/linkedin_login) package
-
-## ⭐⭐⭐⭐ Star ⭐⭐⭐⭐ a [Repository](https://github.com/imsujan276/easy_linkedin_login) if you like project. Your support matters to us.⭐⭐⭐⭐
+-   A Flutter library for  [LinkedIn](https://docs.microsoft.com/en-us/linkedin/consumer/integrations/self-serve/sign-in-with-linkedin?context=linkedin/consumer/context) OAuth 2.0 APIs .
+-   This library is using authorization from [LinkedIn API](https://engineering.linkedin.com/blog/2018/12/developer-program-updates)
 
 ## Important 
 
