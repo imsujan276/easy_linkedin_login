@@ -20,8 +20,6 @@
 # in sync with this file.
 
 analyzer:
-  enable-experiment:
-    - extension-methods
   language:
   # To be enforced:
   #     strict-inference: true
@@ -126,7 +124,6 @@ linter:
     - prefer_const_constructors_in_immutables
     - prefer_const_declarations
     - prefer_constructors_over_static_methods
-    - prefer_equal_for_default_values
     - prefer_function_declarations_over_variables
     - prefer_interpolation_to_compose_strings
     - prefer_is_empty
@@ -160,7 +157,6 @@ linter:
     - close_sinks
     - curly_braces_in_flow_control_structures
     - file_names
-    - invariant_booleans
     - null_closures
     - prefer_final_in_for_each
     - prefer_generic_function_type_aliases

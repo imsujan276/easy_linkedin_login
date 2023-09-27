@@ -1,9 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:easy_linkedin_login/src/utils/configuration.dart';
+import 'package:easy_linkedin_login/src/core/exceptions.dart';
+import 'package:easy_linkedin_login/src/core/linkedin_api.dart';
 import 'package:easy_linkedin_login/src/utils/logger.dart';
-import 'package:easy_linkedin_login/src/utils/startup/graph.dart';
-import 'package:easy_linkedin_login/src/utils/startup/injector.dart';
-import 'package:easy_linkedin_login/src/webview/actions.dart';
+import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 /// Class will fetch code and access token from the user
@@ -11,32 +9,29 @@ import 'package:webview_flutter/webview_flutter.dart';
 @immutable
 class LinkedInWebViewHandler extends StatefulWidget {
   const LinkedInWebViewHandler({
-    required this.onUrlMatch,
+    required this.getUserProfile,
     this.appBar,
     this.destroySession = false,
     this.onCookieClear,
-    this.onWebViewCreated, // this is just for testing purpose
   });
 
-  final bool? destroySession;
+  final bool destroySession;
   final PreferredSizeWidget? appBar;
-  final Function(WebViewController)? onWebViewCreated;
-  final Function(DirectionUrlMatch) onUrlMatch;
   final Function(bool)? onCookieClear;
+  final bool getUserProfile;
 
   @override
   State createState() => _LinkedInWebViewHandlerState();
 }
 
 class _LinkedInWebViewHandlerState extends State<LinkedInWebViewHandler> {
-  WebViewController? webViewController;
   final CookieManager cookieManager = CookieManager();
 
   @override
   void initState() {
     super.initState();
 
-    if (widget.destroySession!) {
+    if (widget.destroySession) {
       log('LinkedInAuth-steps: cache clearing... ');
       cookieManager.clearCookies().then((value) {
         widget.onCookieClear?.call(true);
@@ -45,36 +40,57 @@ class _LinkedInWebViewHandlerState extends State<LinkedInWebViewHandler> {
     }
   }
 
+  Future<void> authorizeUser(String url) async {
+    try {
+      final authCode = url.split('?').last.split('&').first.split('=').last;
+      final accessTokenData =
+          await LinkedInApi.instance.login(authCode: authCode);
+      if (!widget.getUserProfile && mounted) {
+        Navigator.of(context).pop(accessTokenData);
+        return;
+      }
+      if (accessTokenData.tokenType != null &&
+          accessTokenData.accessToken != null) {
+        final userInfo = await LinkedInApi.instance.getUserInfo(
+          tokenType: accessTokenData.tokenType!,
+          token: accessTokenData.accessToken!,
+        );
+        if (mounted) {
+          Navigator.of(context).pop(
+            userInfo.copyWith(accessToken: accessTokenData),
+          );
+        }
+      }
+    } on HttpResponseException catch (e, stackTrace) {
+      log(e.toString(), stackTrace: stackTrace);
+      if (mounted) {
+        Navigator.of(context).pop(e);
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final viewModel = _ViewModel.from(context);
     return Scaffold(
       appBar: widget.appBar,
       body: Builder(
         builder: (BuildContext context) {
           return WebView(
-            initialUrl: viewModel.initialUrl(),
+            initialUrl: LinkedInApi.instance.config.initialUrl,
             javascriptMode: JavascriptMode.unrestricted,
-            onWebViewCreated: (WebViewController webViewController) async {
-              log('LinkedInAuth-steps: onWebViewCreated ... ');
-
-              widget.onWebViewCreated?.call(webViewController);
-
+            onWebViewCreated: (WebViewController webViewController) {
               log('LinkedInAuth-steps: onWebViewCreated ... DONE');
             },
             navigationDelegate: (NavigationRequest request) async {
               log('LinkedInAuth-steps: navigationDelegate ... ');
-              final isMatch = viewModel.isUrlMatchingToRedirection(
-                context,
-                request.url,
-              );
+              final isMatch = request.url
+                  .startsWith(LinkedInApi.instance.config.redirectUrl);
               log(
                 'LinkedInAuth-steps: navigationDelegate '
                 '[currentUrL: ${request.url}, isCurrentMatch: $isMatch]',
               );
-
               if (isMatch) {
-                widget.onUrlMatch(viewModel.getUrlConfiguration(request.url));
+                await authorizeUser(request.url);
                 log('Navigation delegate prevent... done');
                 return NavigationDecision.prevent;
               }
@@ -86,31 +102,5 @@ class _LinkedInWebViewHandlerState extends State<LinkedInWebViewHandler> {
         },
       ),
     );
-  }
-}
-
-@immutable
-class _ViewModel {
-  const _ViewModel._({
-    required this.graph,
-  });
-
-  factory _ViewModel.from(BuildContext context) => _ViewModel._(
-        graph: InjectorWidget.of(context),
-      );
-
-  final Graph? graph;
-
-  DirectionUrlMatch getUrlConfiguration(String url) {
-    final type = graph!.linkedInConfiguration is AccessCodeConfiguration
-        ? WidgetType.fullProfile
-        : WidgetType.authCode;
-    return DirectionUrlMatch(url: url, type: type);
-  }
-
-  String initialUrl() => graph!.linkedInConfiguration.initialUrl;
-
-  bool isUrlMatchingToRedirection(BuildContext context, String url) {
-    return graph!.linkedInConfiguration.isCurrentUrlMatchToRedirection(url);
   }
 }

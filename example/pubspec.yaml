@@ -14,12 +14,12 @@ description: Example for usage of linkedin_login library
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.13.0 <3.0.0"
+  sdk: '>=3.0.3 <4.0.0'
 
 publish_to: none
 
 dependencies:
-  cupertino_icons: ^0.1.2
+  cupertino_icons: ^1.0.1
   easy_linkedin_login:
     path: ../
   flutter:

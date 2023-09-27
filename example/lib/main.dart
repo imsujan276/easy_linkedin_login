@@ -1,18 +1,19 @@
+import 'dart:developer';
+
 import 'package:easy_linkedin_login/easy_linkedin_login.dart';
 import 'package:flutter/material.dart';
 
-// ignore_for_file: avoid_print
-void main() => runApp(MyApp());
+final config = LinkedInConfig(
+  clientId: 'YOUR_CLIENT_ID',
+  clientSecret: 'YOUR_CLIENT_SECRET',
+  redirectUrl: 'YOUR_REDIRECT_URL',
+);
 
-// @TODO IMPORTANT - you need to change variable values below
-// You need to add your own data from LinkedIn application
-// From: https://www.linkedin.com/developers/
-// Please read step 1 from this link https://developer.linkedin.com/docs/oauth2
-const String redirectUrl = 'https://www.youtube.com/callback';
-const String clientId = '776rnw4e4izlvg';
-const String clientSecret = 'rQEgboUHMLcQi59v';
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -21,34 +22,19 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: DefaultTabController(
-        length: 2,
-        child: Scaffold(
-          appBar: AppBar(
-            bottom: TabBar(
-              tabs: [
-                Tab(
-                  icon: Icon(Icons.person),
-                  text: 'Profile',
-                ),
-                Tab(icon: Icon(Icons.text_fields), text: 'Auth code')
-              ],
-            ),
-            title: Text('LinkedIn Authorization'),
-          ),
-          body: TabBarView(
-            children: [
-              LinkedInProfileExamplePage(),
-              LinkedInAuthCodeExamplePage(),
-            ],
-          ),
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('LinkedIn Authorization'),
         ),
+        body: const LinkedInProfileExamplePage(),
       ),
     );
   }
 }
 
 class LinkedInProfileExamplePage extends StatefulWidget {
+  const LinkedInProfileExamplePage({super.key});
+
   @override
   State createState() => _LinkedInProfileExamplePageState();
 }
@@ -58,6 +44,17 @@ class _LinkedInProfileExamplePageState
   UserObject? user;
   bool logoutUser = false;
 
+  void setUser(LinkedInUserModel u) {
+    setState(() {
+      user = UserObject(
+        firstName: u.givenName ?? 'N/A',
+        lastName: u.familyName ?? 'N/A',
+        email: u.email ?? 'N/A',
+        profileImageUrl: u.picture ?? 'N/A',
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -66,167 +63,53 @@ class _LinkedInProfileExamplePageState
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[
-          LinkedInButtonStandardWidget(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (BuildContext context) => LinkedInUserWidget(
-                    appBar: AppBar(
-                      title: Text('OAuth User'),
-                    ),
-                    destroySession: logoutUser,
-                    redirectUrl: redirectUrl,
-                    clientId: clientId,
-                    clientSecret: clientSecret,
-                    projection: [
-                      ProjectionParameters.id,
-                      ProjectionParameters.localizedFirstName,
-                      ProjectionParameters.localizedLastName,
-                      ProjectionParameters.firstName,
-                      ProjectionParameters.lastName,
-                      ProjectionParameters.profilePicture,
-                    ],
-                    onError: (UserFailedAction e) {
-                      print('Error: ${e.toString()}');
-                      print('Error: ${e.stackTrace.toString()}');
-                    },
-                    onGetUserProfile: (UserSucceededAction linkedInUser) {
-                      print(
-                          'Access token ${linkedInUser.user.token.accessToken!}');
-
-                      print('User id: ${linkedInUser.user.userId}');
-
-                      user = UserObject(
-                        firstName:
-                            linkedInUser.user.firstName!.localized!.label!,
-                        lastName: linkedInUser.user.lastName!.localized!.label!,
-                        email: linkedInUser
-                            .user.email!.elements![0].handleDeep!.emailAddress!,
-                        profileImageUrl: linkedInUser
-                            .user
-                            .profilePicture!
-                            .displayImageContent!
-                            .elements![0]
-                            .identifiers![0]
-                            .identifier!,
-                      );
-
-                      setState(() {
-                        logoutUser = false;
-                      });
-
-                      Navigator.pop(context);
-                    },
-                  ),
-                  fullscreenDialog: true,
-                ),
-              );
-            },
+          LinkedInStandardButton(
+            config: config,
+            destroySession: logoutUser,
+            onError: (error) => log('Error: ${error.message}'),
+            onGetAuthToken: (data) => log('Access token ${data.accessToken!}'),
+            onGetUserProfile: setUser,
+            mini: true,
           ),
-          LinkedInButtonStandardWidget(
-            onTap: () {
-              setState(() {
-                user = null;
-                logoutUser = true;
-              });
-            },
-            buttonText: 'Logout',
+          LinkedInStandardButton(
+            config: config,
+            destroySession: logoutUser,
+            onError: (error) => log('Error: ${error.message}'),
+            onGetAuthToken: (data) => log('Access token ${data.accessToken!}'),
+            onGetUserProfile: setUser,
+          ),
+          LinkedInCustomButton(
+            config: config,
+            destroySession: logoutUser,
+            onError: (error) => log('Error: ${error.message}'),
+            onGetAuthToken: (data) => log('Access token ${data.accessToken!}'),
+            onGetUserProfile: setUser,
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.blueAccent,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 13),
+              child: Text(
+                'Click Here to Login with linkedin',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
           ),
           Column(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text('First: ${user!.firstName} '),
-              Text('Last: ${user!.lastName} '),
-              Text('Email: ${user!.email}'),
-              Text('Profile image: ${user!.profileImageUrl}'),
+              Text('First: ${user?.firstName} '),
+              Text('Last: ${user?.lastName} '),
+              Text('Email: ${user?.email}'),
+              Text('Profile image: ${user?.profileImageUrl}'),
             ],
           ),
         ],
       ),
     );
   }
-}
-
-class LinkedInAuthCodeExamplePage extends StatefulWidget {
-  @override
-  State createState() => _LinkedInAuthCodeExamplePageState();
-}
-
-class _LinkedInAuthCodeExamplePageState
-    extends State<LinkedInAuthCodeExamplePage> {
-  AuthCodeObject? authorizationCode;
-  bool logoutUser = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisSize: MainAxisSize.max,
-      children: <Widget>[
-        LinkedInButtonStandardWidget(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (BuildContext context) => LinkedInAuthCodeWidget(
-                  destroySession: logoutUser,
-                  redirectUrl: redirectUrl,
-                  clientId: clientId,
-                  onError: (AuthorizationFailedAction e) {
-                    print('Error: ${e.toString()}');
-                    print('Error: ${e.stackTrace.toString()}');
-                  },
-                  onGetAuthCode: (AuthorizationSucceededAction response) {
-                    print('Auth code ${response.codeResponse.code!}');
-
-                    print('State: ${response.codeResponse.state!}');
-
-                    authorizationCode = AuthCodeObject(
-                      code: response.codeResponse.code!,
-                      state: response.codeResponse.state!,
-                    );
-                    setState(() {});
-
-                    Navigator.pop(context);
-                  },
-                ),
-                fullscreenDialog: true,
-              ),
-            );
-          },
-        ),
-        LinkedInButtonStandardWidget(
-          onTap: () {
-            setState(() {
-              authorizationCode = null;
-              logoutUser = true;
-            });
-          },
-          buttonText: 'Logout user',
-        ),
-        Container(
-          margin: EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text('Auth code: ${authorizationCode!.code} '),
-              Text('State: ${authorizationCode!.state} '),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class AuthCodeObject {
-  AuthCodeObject({required this.code, required this.state});
-
-  String code, state;
 }
 
 class UserObject {

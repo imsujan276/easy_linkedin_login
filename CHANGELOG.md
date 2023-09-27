@@ -1,3 +1,8 @@
+## 2.0.0
+### Major Update
+- Updated the package to sue the latest Linkedin Auth Product "Sign In with LinkedIn using OpenID Connect"
+- Code optimization
+
 ## 1.0.3
 ### Minor update
 
