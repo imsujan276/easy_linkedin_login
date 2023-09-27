@@ -6,18 +6,20 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 /// Class will fetch code and access token from the user
 /// It will show web view so that we can access to linked in auth page
+///
+/// [getUserProfile] is required, if you want to get the user profile
+/// [appBar] is optional, if you want to show custom app bar
+/// [destroySession] is optional, if you want to destroy the session after getting the user profile or auth token
 @immutable
 class LinkedInWebViewHandler extends StatefulWidget {
   const LinkedInWebViewHandler({
     required this.getUserProfile,
     this.appBar,
     this.destroySession = false,
-    this.onCookieClear,
   });
 
   final bool destroySession;
   final PreferredSizeWidget? appBar;
-  final Function(bool)? onCookieClear;
   final bool getUserProfile;
 
   @override

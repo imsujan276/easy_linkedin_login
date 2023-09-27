@@ -1,4 +1,7 @@
 /// Exception handler for HTTP response
+///
+/// [statusCode] is required, you can get it from the HTTP response
+/// [message] is required, you can get it from the HTTP response
 class HttpResponseException implements Exception {
   HttpResponseException({
     required this.statusCode,

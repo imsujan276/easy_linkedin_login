@@ -5,6 +5,14 @@ import 'package:easy_linkedin_login/src/webview/linked_in_web_view_handler.dart'
 import 'package:flutter/material.dart';
 
 /// Class will generate custom flutter button of your choice
+///
+/// [config] is required to initialize the LinkedIn API
+/// [child] is required, you can pass any widget of your choice
+/// [appBar] is optional, if you want to show custom app bar
+/// [onGetUserProfile] is optional, if you want to get the user profile
+/// [onGetAuthToken] is optional, if you want to get the auth token. If Provided, you will get the auth token instead of user profile
+/// [onError] is optional, if you want to get the error
+/// [destroySession] is optional, if you want to destroy the session after getting the user profile or auth token
 @immutable
 class LinkedInCustomButton extends StatefulWidget {
   const LinkedInCustomButton({

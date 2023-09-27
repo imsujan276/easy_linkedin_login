@@ -1,6 +1,6 @@
 name: easy_linkedin_login
 description: Library for login with LinkedIn OAuth V2 service. This library helps you to implement authorization with LinkedIn OAuth API's.
-version: 2.0.1
+version: 2.0.2
 homepage: https://github.com/imsujan276/easy_linkedin_login
 repository: https://github.com/imsujan276/easy_linkedin_login
 documentation:

@@ -12,6 +12,12 @@ import 'api_endpoint.dart';
 import 'exceptions.dart';
 
 /// LinkedIn API service class
+///
+/// This class is used to get the access token and user profile
+///
+/// [config] is required to get the access token and user profile
+/// You can set it as LinkedInApi.instance.config = config;
+/// where config is an instance of [LinkedInConfig]
 class LinkedInApi {
   LinkedInApi._();
   static final instance = LinkedInApi._();
@@ -21,6 +27,10 @@ class LinkedInApi {
   final httpClient = http.Client();
 
   /// login method to get the access token
+  ///
+  /// [authCode] is required to get the access token
+  ///
+  /// returns [LinkedInAccessToken] which contains the access token and expiry time
   Future<LinkedInAccessToken> login({required String? authCode}) async {
     log('LinkedInAuth-steps: trying to login...');
     final Map<String, dynamic> body = {
@@ -49,6 +59,11 @@ class LinkedInApi {
   }
 
   /// get the user info from the access token
+  ///
+  /// [token] is required to get the user info
+  /// [tokenType] is required to get the user info
+  ///
+  /// returns [LinkedInUserModel] which contains the user profile
   Future<LinkedInUserModel> getUserInfo({
     required String token,
     required String tokenType,

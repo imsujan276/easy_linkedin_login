@@ -5,6 +5,17 @@ import 'package:easy_linkedin_login/src/webview/linked_in_web_view_handler.dart'
 import 'package:flutter/material.dart';
 
 /// Class will generate standard flutter button
+///
+/// [config] is required to initialize the LinkedIn API
+/// [appBar] is optional, if you want to show custom app bar
+/// [onGetUserProfile] is optional, if you want to get the user profile
+/// [onGetAuthToken] is optional, if you want to get the auth token. If Provided, you will get the auth token instead of user profile
+/// [onError] is optional, if you want to get the error
+/// [iconHeight] is optional, if you want to set the height of the icon
+/// [iconWidth] is optional, if you want to set the width of the icon
+/// [iconAssetPath] is optional, if you want to set the custom icon asset path
+/// [destroySession] is optional, if you want to destroy the session after getting the user profile or auth token
+/// [mini] is optional, if you want to use the mini version of the button
 @immutable
 class LinkedInStandardButton extends StatefulWidget {
   const LinkedInStandardButton({

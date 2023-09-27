@@ -1,6 +1,13 @@
 import 'package:uuid/uuid.dart';
 
 /// LinkedIn configuration class
+///
+/// [clientId] is required, you can get it from your LinkedIn developer account
+/// [clientSecret] is required, you can get it from your LinkedIn developer account
+/// [redirectUrl] is required, you can get it from your LinkedIn developer account
+/// [scopes] is optional, you can pass any scopes
+///
+/// [initialUrl] is used to initialize the LinkedIn API
 class LinkedInConfig {
   LinkedInConfig({
     required this.clientId,

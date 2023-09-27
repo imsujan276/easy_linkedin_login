@@ -1,4 +1,4 @@
-## 2.0.1
+## 2.0.2
 - pub point optimizations
 
 ## 2.0.0

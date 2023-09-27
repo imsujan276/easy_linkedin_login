@@ -4,6 +4,8 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 
 /// log the message in the terminal
+///
+/// [message] is required, you can pass any message
 void log(
   String message, {
   DateTime? time,
@@ -26,6 +28,8 @@ void log(
     );
 
 /// log error message in the terminal
+///
+/// [message] is required, you can pass any message
 void logError(
   String message, {
   DateTime? time,
@@ -47,6 +51,8 @@ void logError(
     );
 
 /// Logger class
+///
+/// This class is used to log the message in the terminal
 class SecretLogger {
   factory SecretLogger() => _instance;
 
@@ -54,6 +60,7 @@ class SecretLogger {
 
   static final SecretLogger _instance = SecretLogger._();
 
+  /// log the message in the terminal
   void log(
     String message, {
     DateTime? time,
@@ -71,6 +78,7 @@ class SecretLogger {
     }
   }
 
+  /// log error message in the terminal
   void logError(
     String message, {
     DateTime? time,
@@ -89,6 +97,8 @@ class SecretLogger {
 }
 
 /// Debug class
+///
+/// This class is used to check if the app is in debug mode or not
 class Debug {
   bool get isRelease => bool.fromEnvironment('dart.vm.product');
 }
