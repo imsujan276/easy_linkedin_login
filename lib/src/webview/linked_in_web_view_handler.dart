@@ -25,18 +25,37 @@ class LinkedInWebViewHandler extends StatefulWidget {
 }
 
 class _LinkedInWebViewHandlerState extends State<LinkedInWebViewHandler> {
-  final CookieManager cookieManager = CookieManager();
+  late WebViewController _controller;
 
   @override
   void initState() {
     super.initState();
 
+    _controller = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setBackgroundColor(Colors.transparent)
+      ..setNavigationDelegate(
+        NavigationDelegate(
+          onNavigationRequest: (request) async {
+            final isMatch =
+                request.url.startsWith(LinkedInApi.instance.config.redirectUrl);
+            if (isMatch) {
+              await authorizeUser(request.url);
+              return NavigationDecision.prevent;
+            }
+
+            return NavigationDecision.navigate;
+          },
+        ),
+      )
+      ..loadRequest(Uri.parse(LinkedInApi.instance.config.initialUrl));
+
     if (widget.destroySession) {
       log('LinkedInAuth-steps: cache clearing... ');
-      cookieManager.clearCookies().then((value) {
-        widget.onCookieClear?.call(true);
-        log('LinkedInAuth-steps: cache clearing... DONE');
-      });
+      WebViewCookieManager().clearCookies();
+      _controller
+        ..clearLocalStorage()
+        ..clearCache();
     }
   }
 
@@ -71,35 +90,10 @@ class _LinkedInWebViewHandlerState extends State<LinkedInWebViewHandler> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: widget.appBar,
-      body: Builder(
-        builder: (BuildContext context) {
-          return WebView(
-            initialUrl: LinkedInApi.instance.config.initialUrl,
-            javascriptMode: JavascriptMode.unrestricted,
-            onWebViewCreated: (WebViewController webViewController) {
-              log('LinkedInAuth-steps: onWebViewCreated ... DONE');
-            },
-            navigationDelegate: (NavigationRequest request) async {
-              log('LinkedInAuth-steps: navigationDelegate ... ');
-              final isMatch = request.url
-                  .startsWith(LinkedInApi.instance.config.redirectUrl);
-              log(
-                'LinkedInAuth-steps: navigationDelegate '
-                '[currentUrL: ${request.url}, isCurrentMatch: $isMatch]',
-              );
-              if (isMatch) {
-                await authorizeUser(request.url);
-                log('Navigation delegate prevent... done');
-                return NavigationDecision.prevent;
-              }
-
-              return NavigationDecision.navigate;
-            },
-            gestureNavigationEnabled: false,
-          );
-        },
+    return SafeArea(
+      child: Scaffold(
+        appBar: widget.appBar,
+        body: WebViewWidget(controller: _controller),
       ),
     );
   }
