@@ -5,8 +5,6 @@ import 'package:easy_linkedin_login/src/webview/linked_in_web_view_handler.dart'
 import 'package:flutter/material.dart';
 
 /// Class will generate custom flutter button of your choice
-///
-///
 @immutable
 class LinkedInCustomButton extends StatefulWidget {
   const LinkedInCustomButton({

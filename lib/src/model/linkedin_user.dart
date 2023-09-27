@@ -1,22 +1,9 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-
 import 'dart:convert';
-
 import 'package:easy_linkedin_login/src/model/linkedin_access_token.dart';
-
 import 'linkedin_locale.dart';
 
 /// LinkedIn User information
 class LinkedInUserModel {
-  final String? name;
-  final String? familyName;
-  final String? givenName;
-  final String? email;
-  final String? picture;
-  final String? sub;
-  final LinkedInLocale? locale;
-  final LinkedInAccessToken? accessToken;
-
   LinkedInUserModel({
     this.name,
     this.familyName,
@@ -27,19 +14,6 @@ class LinkedInUserModel {
     this.locale,
     this.accessToken,
   });
-
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'name': name,
-      'family_name': familyName,
-      'given_name': givenName,
-      'email': email,
-      'picture': picture,
-      'sub': sub,
-      'locale': locale?.toMap(),
-      'accessToken': accessToken?.toMap(),
-    };
-  }
 
   factory LinkedInUserModel.fromMap(Map<String, dynamic> map) {
     return LinkedInUserModel(
@@ -56,10 +30,31 @@ class LinkedInUserModel {
     );
   }
 
-  String toJson() => json.encode(toMap());
-
   factory LinkedInUserModel.fromJson(String source) =>
       LinkedInUserModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  final String? name;
+  final String? familyName;
+  final String? givenName;
+  final String? email;
+  final String? picture;
+  final String? sub;
+  final LinkedInLocale? locale;
+  final LinkedInAccessToken? accessToken;
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'name': name,
+      'family_name': familyName,
+      'given_name': givenName,
+      'email': email,
+      'picture': picture,
+      'sub': sub,
+      'locale': locale?.toMap(),
+      'accessToken': accessToken?.toMap(),
+    };
+  }
+
+  String toJson() => json.encode(toMap());
 
   @override
   String toString() {

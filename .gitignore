@@ -14,9 +14,6 @@ changelog.txt
 # Tests
 /ozzie
 
-# Docker
-core
-
 # Coverage report
 /coverage
 

@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 
+/// log the message in the terminal
 void log(
   String message, {
   DateTime? time,
@@ -24,6 +25,7 @@ void log(
       zone: zone,
     );
 
+/// log error message in the terminal
 void logError(
   String message, {
   DateTime? time,
@@ -44,6 +46,7 @@ void logError(
       zone: zone,
     );
 
+/// Logger class
 class SecretLogger {
   factory SecretLogger() => _instance;
 
@@ -85,6 +88,7 @@ class SecretLogger {
   }
 }
 
+/// Debug class
 class Debug {
   bool get isRelease => bool.fromEnvironment('dart.vm.product');
 }
